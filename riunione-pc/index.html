@@ -44,146 +44,6 @@ button,input,textarea,select{font:inherit;color:inherit}
 h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;margin:0;text-wrap:balance}
 .eyebrow{font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;font-size:13px;font-weight:600}
 
-/* ---------- configurazione della base dati (da compilare una volta sola) ---------- */
-var SUPABASE_URL = "";       /* esempio: https://abcdefghijklm.supabase.co */
-var SUPABASE_CHIAVE = "";    /* chiave pubblica «anon public» del progetto */
-
-/* ---------- collegamento alla base dati: stessa interfaccia usata dalla pagina ---------- */
-function bancaSupabase(){
-  if(!SUPABASE_URL || !SUPABASE_CHIAVE) return null;
-  var base = SUPABASE_URL.replace(/\/+$/,"") + "/rest/v1/";
-  var testata = {
-    apikey: SUPABASE_CHIAVE,
-    Authorization: "Bearer " + SUPABASE_CHIAVE,
-    "Content-Type": "application/json"
-  };
-  var ascolti = [], giro = null;
-
-  function spiegazione(stato, testo){
-    if(stato === 401 || stato === 403) return "la base dati ha rifiutato l'accesso: controlla la chiave pubblica e i permessi della tabella";
-    if(stato === 404) return "tabella «documenti» non trovata: esegui le istruzioni di configurazione";
-    return "errore " + stato + (testo ? " – " + testo.slice(0,160) : "");
-  }
-  async function chiama(percorso, opzioni){
-    var o = opzioni || {};
-    var risposta = await fetch(base + percorso, {
-      method: o.method || "GET",
-      headers: Object.assign({}, testata, o.headers || {}),
-      body: o.body === undefined ? undefined : JSON.stringify(o.body)
-    });
-    if(!risposta.ok){
-      var testo = "";
-      try{ testo = await risposta.text(); }catch(e){}
-      var errore = new Error(spiegazione(risposta.status, testo));
-      errore.code = risposta.status === 404 ? "invalid_argument" : "unavailable";
-      throw errore;
-    }
-    if(risposta.status === 204) return null;
-    var corpo = await risposta.text();
-    return corpo ? JSON.parse(corpo) : null;
-  }
-  function raccoltaDi(p){ return p.split("/").slice(0,-1).join("/"); }
-  function registra(a){
-    ascolti.push(a);
-    a.aggiorna();
-    if(!giro){ giro = setInterval(function(){ ascolti.forEach(function(x){ x.aggiorna(); }); }, 4000); }
-    return function(){ ascolti = ascolti.filter(function(x){ return x !== a; }); };
-  }
-  function sveglia(){ setTimeout(function(){ ascolti.forEach(function(x){ x.aggiorna(true); }); }, 250); }
-
-  function scattoDoc(percorso, dati){
-    return { id: percorso.split("/").pop(), exists: !!dati,
-             data: function(){ return dati || undefined; }, metadata:{ fromCache:false, hasPendingWrites:false } };
-  }
-  function docRef(percorso){
-    async function leggi(){
-      var righe = await chiama("documenti?percorso=eq." + encodeURIComponent(percorso) + "&select=dati");
-      return (righe && righe[0]) ? righe[0].dati : null;
-    }
-    return {
-      id: percorso.split("/").pop(), path: percorso,
-      get: async function(){ return scattoDoc(percorso, await leggi()); },
-      set: async function(dati){
-        await chiama("documenti?on_conflict=percorso", {
-          method: "POST",
-          headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
-          body: { percorso: percorso, raccolta: raccoltaDi(percorso), dati: dati }
-        });
-        sveglia();
-      },
-      update: async function(modifiche){
-        await chiama("rpc/unisci", { method:"POST", headers:{ Prefer:"return=minimal" },
-          body: { p_percorso: percorso, p_raccolta: raccoltaDi(percorso), p_dati: modifiche } });
-        sveglia();
-      },
-      delete: async function(){
-        await chiama("documenti?percorso=eq." + encodeURIComponent(percorso), { method:"DELETE", headers:{ Prefer:"return=minimal" } });
-        sveglia();
-      },
-      collection: function(p){ return collRef(percorso + "/" + p); },
-      onSnapshot: function(avanti, errore){
-        var ultimo = null;
-        return registra({ aggiorna: async function(forzato){
-          if(document.hidden && !forzato) return;
-          try{
-            var dati = await leggi(), firma = JSON.stringify(dati);
-            if(firma === ultimo) return;
-            ultimo = firma;
-            avanti(scattoDoc(percorso, dati));
-          }catch(e){ if(errore){ errore({ code: e.code || "unavailable", message: e.message }); } }
-        }});
-      }
-    };
-  }
-  function collRef(percorso, ordine){
-    function ordina(righe){
-      var lista = (righe || []).map(function(r){ return { id: String(r.percorso).split("/").pop(), dati: r.dati || {} }; });
-      if(ordine){
-        lista.sort(function(a,b){
-          var x = a.dati[ordine.campo], y = b.dati[ordine.campo];
-          if(x === undefined || x === null) x = "";
-          if(y === undefined || y === null) y = "";
-          var esito = (typeof x === "number" && typeof y === "number") ? (x - y) : String(x).localeCompare(String(y));
-          return esito * (ordine.dir === "desc" ? -1 : 1);
-        });
-      }
-      return lista;
-    }
-    function scatto(lista){
-      var docs = lista.map(function(v){
-        return { id: v.id, exists: true, data: function(){ return v.dati; }, metadata:{ fromCache:false, hasPendingWrites:false } };
-      });
-      return { docs: docs, size: docs.length, empty: docs.length === 0, docChanges: function(){ return []; }, metadata:{} };
-    }
-    async function leggi(){
-      return ordina(await chiama("documenti?raccolta=eq." + encodeURIComponent(percorso) + "&select=percorso,dati"));
-    }
-    var q = {
-      path: percorso,
-      doc: function(id){ return docRef(percorso + "/" + (id || ("a" + Date.now().toString(36) + Math.random().toString(36).slice(2,7)))); },
-      add: async function(d){ var r = q.doc(); await r.set(d); return r; },
-      orderBy: function(campo, dir){ return collRef(percorso, { campo: campo, dir: dir || "asc" }); },
-      limit: function(){ return q; },
-      where: function(){ return q; },
-      get: async function(){ return scatto(await leggi()); },
-      onSnapshot: function(avanti, errore){
-        var ultimo = null;
-        return registra({ aggiorna: async function(forzato){
-          if(document.hidden && !forzato) return;
-          try{
-            var lista = await leggi(), firma = JSON.stringify(lista);
-            if(firma === ultimo) return;
-            ultimo = firma;
-            avanti(scatto(lista));
-          }catch(e){ if(errore){ errore({ code: e.code || "unavailable", message: e.message }); } }
-        }});
-      }
-    };
-    return q;
-  }
-  return { doc: docRef, collection: collRef };
-}
-
 /* ---------- accesso ---------- */
 .gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;
   background:linear-gradient(150deg,#0b3d6e,#092c4f 55%,#071f38)}
@@ -354,7 +214,9 @@ footer p{margin:12px 0 0}
       <button class="bottone pieno" type="submit">Entra</button>
     </form>
     <p class="gate-nota" id="gateAvviso" hidden><strong>Pagina non ancora collegata alla base dati.</strong><br>
-      Chi cura la pagina deve compilare i due valori del progetto Supabase in cima al file, seguendo le istruzioni del file CONFIGURAZIONE.md.</p>
+      Chi cura la pagina deve compilare i valori del progetto Firebase in cima al file, seguendo le istruzioni del file CONFIGURAZIONE.md.</p>
+    <p class="gate-nota" id="gateAvvisoRete" hidden><strong>Collegamento non riuscito.</strong><br>
+      La pagina non è riuscita a raggiungere la base dati. Controlla la connessione a internet e ricarica la pagina.</p>
     <p class="gate-nota">Il nome serve solo a firmare gli aggiornamenti sui punti dell'ordine del giorno e resta salvato su questo dispositivo.</p>
   </div>
 </div>
@@ -536,7 +398,7 @@ function guasto(testo){
 async function salva(rif, dati){
   try{ await rif.update(dati); }
   catch(e){
-    if(e && e.code === "invalid_argument"){ await rif.set(dati); }
+    if(e && (e.code === "invalid_argument" || e.code === "not-found" || e.code === "not_found")){ await rif.set(dati); }
     else{ throw e; }
   }
 }
@@ -570,143 +432,42 @@ document.addEventListener("visibilitychange", function(){ if(document.hidden){ s
 window.addEventListener("pagehide", salvaTuttoSubito);
 
 /* ---------- configurazione della base dati (da compilare una volta sola) ---------- */
-var SUPABASE_URL = "";       /* esempio: https://abcdefghijklm.supabase.co */
-var SUPABASE_CHIAVE = "";    /* chiave pubblica «anon public» del progetto */
+/* I valori si copiano dalla console Firebase: Impostazioni progetto, sezione «Le tue app».
+   Sono valori pubblici, pensati per stare dentro una pagina web: non sono password. */
+var CONFIG_FIREBASE = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
 
-/* ---------- collegamento alla base dati: stessa interfaccia usata dalla pagina ---------- */
-function bancaSupabase(){
-  if(!SUPABASE_URL || !SUPABASE_CHIAVE) return null;
-  var base = SUPABASE_URL.replace(/\/+$/,"") + "/rest/v1/";
-  var testata = {
-    apikey: SUPABASE_CHIAVE,
-    Authorization: "Bearer " + SUPABASE_CHIAVE,
-    "Content-Type": "application/json"
-  };
-  var ascolti = [], giro = null;
+/* ---------- collegamento alla base dati Firestore ---------- */
+var VERSIONI_FIREBASE = ["10.14.1", "9.23.0"];
 
-  function spiegazione(stato, testo){
-    if(stato === 401 || stato === 403) return "la base dati ha rifiutato l'accesso: controlla la chiave pubblica e i permessi della tabella";
-    if(stato === 404) return "tabella «documenti» non trovata: esegui le istruzioni di configurazione";
-    return "errore " + stato + (testo ? " – " + testo.slice(0,160) : "");
-  }
-  async function chiama(percorso, opzioni){
-    var o = opzioni || {};
-    var risposta = await fetch(base + percorso, {
-      method: o.method || "GET",
-      headers: Object.assign({}, testata, o.headers || {}),
-      body: o.body === undefined ? undefined : JSON.stringify(o.body)
-    });
-    if(!risposta.ok){
-      var testo = "";
-      try{ testo = await risposta.text(); }catch(e){}
-      var errore = new Error(spiegazione(risposta.status, testo));
-      errore.code = risposta.status === 404 ? "invalid_argument" : "unavailable";
-      throw errore;
-    }
-    if(risposta.status === 204) return null;
-    var corpo = await risposta.text();
-    return corpo ? JSON.parse(corpo) : null;
-  }
-  function raccoltaDi(p){ return p.split("/").slice(0,-1).join("/"); }
-  function registra(a){
-    ascolti.push(a);
-    a.aggiorna();
-    if(!giro){ giro = setInterval(function(){ ascolti.forEach(function(x){ x.aggiorna(); }); }, 4000); }
-    return function(){ ascolti = ascolti.filter(function(x){ return x !== a; }); };
-  }
-  function sveglia(){ setTimeout(function(){ ascolti.forEach(function(x){ x.aggiorna(true); }); }, 250); }
-
-  function scattoDoc(percorso, dati){
-    return { id: percorso.split("/").pop(), exists: !!dati,
-             data: function(){ return dati || undefined; }, metadata:{ fromCache:false, hasPendingWrites:false } };
-  }
-  function docRef(percorso){
-    async function leggi(){
-      var righe = await chiama("documenti?percorso=eq." + encodeURIComponent(percorso) + "&select=dati");
-      return (righe && righe[0]) ? righe[0].dati : null;
-    }
-    return {
-      id: percorso.split("/").pop(), path: percorso,
-      get: async function(){ return scattoDoc(percorso, await leggi()); },
-      set: async function(dati){
-        await chiama("documenti?on_conflict=percorso", {
-          method: "POST",
-          headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
-          body: { percorso: percorso, raccolta: raccoltaDi(percorso), dati: dati }
-        });
-        sveglia();
-      },
-      update: async function(modifiche){
-        await chiama("rpc/unisci", { method:"POST", headers:{ Prefer:"return=minimal" },
-          body: { p_percorso: percorso, p_raccolta: raccoltaDi(percorso), p_dati: modifiche } });
-        sveglia();
-      },
-      delete: async function(){
-        await chiama("documenti?percorso=eq." + encodeURIComponent(percorso), { method:"DELETE", headers:{ Prefer:"return=minimal" } });
-        sveglia();
-      },
-      collection: function(p){ return collRef(percorso + "/" + p); },
-      onSnapshot: function(avanti, errore){
-        var ultimo = null;
-        return registra({ aggiorna: async function(forzato){
-          if(document.hidden && !forzato) return;
-          try{
-            var dati = await leggi(), firma = JSON.stringify(dati);
-            if(firma === ultimo) return;
-            ultimo = firma;
-            avanti(scattoDoc(percorso, dati));
-          }catch(e){ if(errore){ errore({ code: e.code || "unavailable", message: e.message }); } }
-        }});
-      }
-    };
-  }
-  function collRef(percorso, ordine){
-    function ordina(righe){
-      var lista = (righe || []).map(function(r){ return { id: String(r.percorso).split("/").pop(), dati: r.dati || {} }; });
-      if(ordine){
-        lista.sort(function(a,b){
-          var x = a.dati[ordine.campo], y = b.dati[ordine.campo];
-          if(x === undefined || x === null) x = "";
-          if(y === undefined || y === null) y = "";
-          var esito = (typeof x === "number" && typeof y === "number") ? (x - y) : String(x).localeCompare(String(y));
-          return esito * (ordine.dir === "desc" ? -1 : 1);
-        });
-      }
-      return lista;
-    }
-    function scatto(lista){
-      var docs = lista.map(function(v){
-        return { id: v.id, exists: true, data: function(){ return v.dati; }, metadata:{ fromCache:false, hasPendingWrites:false } };
+function caricaScript(indirizzo, poi){
+  var tag = document.createElement("script");
+  tag.src = indirizzo;
+  tag.async = false;
+  tag.onload = function(){ poi(true); };
+  tag.onerror = function(){ tag.remove(); poi(false); };
+  document.head.appendChild(tag);
+}
+function libreriaPronta(){ return typeof firebase !== "undefined" && !!firebase.firestore; }
+function caricaLibreria(poi){
+  (function prova(i){
+    if(libreriaPronta()){ poi(true); return; }
+    if(i >= VERSIONI_FIREBASE.length){ poi(false); return; }
+    var base = "https://www.gstatic.com/firebasejs/" + VERSIONI_FIREBASE[i] + "/";
+    caricaScript(base + "firebase-app-compat.js", function(riuscito){
+      if(!riuscito){ prova(i+1); return; }
+      caricaScript(base + "firebase-firestore-compat.js", function(riuscito2){
+        if(!riuscito2){ prova(i+1); return; }
+        poi(libreriaPronta());
       });
-      return { docs: docs, size: docs.length, empty: docs.length === 0, docChanges: function(){ return []; }, metadata:{} };
-    }
-    async function leggi(){
-      return ordina(await chiama("documenti?raccolta=eq." + encodeURIComponent(percorso) + "&select=percorso,dati"));
-    }
-    var q = {
-      path: percorso,
-      doc: function(id){ return docRef(percorso + "/" + (id || ("a" + Date.now().toString(36) + Math.random().toString(36).slice(2,7)))); },
-      add: async function(d){ var r = q.doc(); await r.set(d); return r; },
-      orderBy: function(campo, dir){ return collRef(percorso, { campo: campo, dir: dir || "asc" }); },
-      limit: function(){ return q; },
-      where: function(){ return q; },
-      get: async function(){ return scatto(await leggi()); },
-      onSnapshot: function(avanti, errore){
-        var ultimo = null;
-        return registra({ aggiorna: async function(forzato){
-          if(document.hidden && !forzato) return;
-          try{
-            var lista = await leggi(), firma = JSON.stringify(lista);
-            if(firma === ultimo) return;
-            ultimo = firma;
-            avanti(scatto(lista));
-          }catch(e){ if(errore){ errore({ code: e.code || "unavailable", message: e.message }); } }
-        }});
-      }
-    };
-    return q;
-  }
-  return { doc: docRef, collection: collRef };
+    });
+  })(0);
 }
 
 /* ---------- accesso ---------- */
@@ -716,9 +477,23 @@ async function avvia(){
   nomeUtente = leggi(CHIAVE_NOME) || "";
   if(nomeUtente){ $("nome").value = nomeUtente; }
 
-  db = bancaSupabase();
-  if(!db){
+  if(!CONFIG_FIREBASE.projectId || !CONFIG_FIREBASE.apiKey){
     $("gateAvviso").hidden = false;
+    $("formAccesso").hidden = true;
+    return;
+  }
+  var pronta = await new Promise(function(r){ caricaLibreria(r); });
+  if(!pronta){
+    $("gateAvvisoRete").hidden = false;
+    $("formAccesso").hidden = true;
+    return;
+  }
+  try{
+    if(!firebase.apps.length){ firebase.initializeApp(CONFIG_FIREBASE); }
+    db = firebase.firestore();
+  }catch(e){
+    db = null;
+    $("gateAvvisoRete").hidden = false;
     $("formAccesso").hidden = true;
     return;
   }
@@ -761,7 +536,7 @@ function entra(){
 /* ---------- riunioni ---------- */
 function ascoltaRiunioni(){
   db.collection("riunioni").orderBy("data","desc").limit(100).onSnapshot(function(snap){
-    riunioni = snap.docs.map(function(d){ var o = d.data() || {}; o.id = d.id; return o; });
+    riunioni = snap.docs.map(function(d){ return Object.assign({}, d.data() || {}, { id: d.id }); });
     stato("Sincronizzata", false);
     disegnaSelettore();
     if(!riunioni.length){
@@ -852,7 +627,7 @@ function ascoltaPunti(){
   var id = idCorrente;
   unsubPunti = db.collection("riunioni/" + id + "/punti").orderBy("n").limit(300).onSnapshot(function(snap){
     if(idCorrente !== id) return;
-    punti = snap.docs.map(function(d){ var o = d.data() || {}; o.id = d.id; return o; });
+    punti = snap.docs.map(function(d){ return Object.assign({}, d.data() || {}, { id: d.id }); });
     disegnaPunti();
   }, function(e){ stato("Sincronizzazione interrotta", true); });
 }
