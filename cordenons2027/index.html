@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Manuel Pil8, candidato sindaco del campo largo per Cordenons 2027. Il candidato, la lettera ai cittadini e il programma elettorale punto per punto.">
+  <meta property="og:title" content="Manuel Pil8 · Sindaco per Cordenons 2027">
+  <meta property="og:description" content="Insieme, ma senza correre. Il candidato, la lettera ai cittadini e il programma punto per punto.">
+  <meta property="og:image" content="img/anteprima.jpg">
+  <meta property="og:type" content="website">
+  <title>Manuel Pil8 · Sindaco per Cordenons 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --rosso:#e2001a;--rosso-scuro:#b8000f;--nero:#1a1a1a;--grigio:#5a5a5a;--chiaro:#f4f4f4;--bianco:#fff;--linea:#e6e6e6;
+      --font:'Montserrat',Arial,Helvetica,sans-serif;--larga:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;font-family:var(--font);color:var(--nero);background:var(--bianco);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:var(--rosso);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{max-width:100%;display:block}
+    h1,h2,h3{line-height:1.15;margin:0 0 .5em;font-weight:800;letter-spacing:-.01em}
+    h2{font-size:clamp(28px,3.4vw,42px)}
+    h3{font-size:clamp(20px,2vw,26px)}
+    p{margin:0 0 1em}
+    .contenitore{max-width:var(--larga);margin:0 auto;padding:0 24px}
+    .occhiello{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--rosso);margin-bottom:14px}
+    .bottone{display:inline-flex;align-items:center;gap:12px;background:var(--rosso);color:#fff;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:14px;padding:16px 28px;border-radius:4px;border:2px solid var(--rosso);transition:.2s}
+    .bottone:hover{background:var(--rosso-scuro);border-color:var(--rosso-scuro);text-decoration:none}
+    .bottone.chiaro{background:transparent;color:#fff;border-color:#fff}
+    .bottone.chiaro:hover{background:#fff;color:var(--rosso)}
+    .bottone.scuro{background:var(--nero);border-color:var(--nero)}
+    .bottone.scuro:hover{background:#000}
+
+    /* Barra superiore */
+    .barra-alta{background:var(--rosso);color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+    .barra-alta .contenitore{display:flex;justify-content:space-between;align-items:center;height:34px}
+    .barra-alta a{color:#fff}
+
+    /* Testata e menù */
+    .testata{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--linea);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+    .testata .contenitore{display:flex;align-items:center;justify-content:space-between;height:78px}
+    .marchio{display:flex;align-items:center;gap:14px;color:var(--nero);font-weight:900;font-size:19px;letter-spacing:-.02em}
+    .marchio:hover{text-decoration:none}
+    .marchio .sigla{width:46px;height:46px;border-radius:50%;background:var(--rosso);color:#fff;display:grid;place-items:center;font-size:17px;font-weight:900;letter-spacing:0}
+    .marchio small{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--grigio)}
+    .menu{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:0}
+    .menu>li{position:relative}
+    .menu>li>a,.menu>li>button{display:flex;align-items:center;gap:6px;padding:12px 14px;font:inherit;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--nero);background:none;border:0;cursor:pointer;border-radius:4px}
+    .menu>li>a:hover,.menu>li>button:hover,.menu>li>button[aria-expanded="true"]{background:var(--chiaro);text-decoration:none;color:var(--rosso)}
+    .menu .freccia{width:10px;height:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-3px);transition:.2s}
+    .menu>li>button[aria-expanded="true"] .freccia{transform:rotate(225deg) translateY(-3px)}
+    .tendina{position:absolute;top:calc(100% + 8px);left:0;min-width:360px;background:#fff;border:1px solid var(--linea);border-top:4px solid var(--rosso);box-shadow:0 18px 40px rgba(0,0,0,.14);border-radius:0 0 6px 6px;padding:10px 0;list-style:none;margin:0;display:none;max-height:min(70vh,640px);overflow:auto}
+    .tendina.aperta{display:block}
+    .tendina li a{display:flex;gap:14px;align-items:baseline;padding:10px 20px;color:var(--nero);font-size:14px;font-weight:600;line-height:1.35}
+    .tendina li a:hover{background:var(--chiaro);color:var(--rosso);text-decoration:none}
+    .tendina li a .num{color:var(--rosso);font-weight:900;min-width:26px;font-size:13px}
+    .tendina li.separatore{border-top:1px solid var(--linea);margin:8px 0}
+    .menu .evidenza a{background:var(--rosso);color:#fff!important}
+    .menu .evidenza a:hover{background:var(--rosso-scuro)!important}
+    .hamburger{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer;flex-direction:column;justify-content:center;gap:6px;align-items:center}
+    .hamburger span{width:26px;height:3px;background:var(--nero);border-radius:2px;transition:.2s}
+
+    /* Apertura (sfondo bicicletta in trasparenza) */
+    .apertura{position:relative;min-height:calc(100vh - 112px);display:flex;align-items:center;overflow:hidden;color:#fff;background:var(--nero)}
+    .apertura .sfondo{position:absolute;inset:0 0 0 22%;background:url("img/bicicletta.jpg") center 30%/cover no-repeat;opacity:.38;filter:saturate(.9)}
+    .apertura .velo{position:absolute;inset:0;background:linear-gradient(100deg,rgba(226,0,26,.92) 0%,rgba(226,0,26,.72) 38%,rgba(26,26,26,.55) 100%)}
+    .apertura .contenitore{position:relative;z-index:1;padding-top:80px;padding-bottom:80px}
+    .apertura .contenuto{max-width:720px}
+    .apertura .occhiello{color:#fff;background:rgba(0,0,0,.28);padding:8px 14px;border-radius:3px}
+    .apertura h1{font-size:clamp(42px,6.2vw,84px);font-weight:900;letter-spacing:-.025em;margin:10px 0 18px;text-transform:uppercase}
+    .apertura h1 em{font-style:normal;color:#ffd8dc}
+    .apertura .sottotitolo{font-size:clamp(17px,1.6vw,22px);font-weight:500;max-width:600px;opacity:.95}
+    .apertura .azioni{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+    .apertura .cartiglio{position:absolute;right:24px;bottom:28px;z-index:1;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.8}
+
+    /* Fascia con i tre slogan */
+    .fascia{background:var(--nero);color:#fff}
+    .fascia .contenitore{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+    .fascia div{padding:34px 28px;border-right:1px solid rgba(255,255,255,.12)}
+    .fascia div:first-child{padding-left:0}
+    .fascia div:last-child{border:0}
+    .fascia strong{display:block;font-size:20px;font-weight:800;line-height:1.3}
+    .fascia strong::before{content:"«";color:var(--rosso)}
+    .fascia strong::after{content:"»";color:var(--rosso)}
+
+    /* Sezioni generiche */
+    section.blocco{padding:96px 0}
+    section.blocco.grigia{background:var(--chiaro)}
+    .due-colonne{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+
+    /* Il candidato */
+    .ritratto{position:relative}
+    .ritratto .cornice{aspect-ratio:4/5;background:#ddd url("img/candidato.jpg") center top/cover no-repeat;border-radius:6px;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+    .ritratto .cornice::after{content:"";position:absolute;inset:auto -18px -18px auto;width:60%;height:60%;border:4px solid var(--rosso);border-radius:6px;z-index:-1}
+    .ritratto .didascalia{position:absolute;left:-18px;bottom:36px;background:var(--rosso);color:#fff;padding:14px 22px;border-radius:4px;font-weight:800;font-size:15px;line-height:1.3;box-shadow:0 12px 30px rgba(226,0,26,.35)}
+    .ritratto .didascalia small{display:block;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+    .citazione{font-size:clamp(20px,2vw,26px);font-weight:700;line-height:1.35;border-left:5px solid var(--rosso);padding-left:22px;margin:0 0 26px}
+    .testo-lungo p{font-size:17px;color:#333}
+    .schede{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+    .scheda{background:#fff;border:1px solid var(--linea);border-top:4px solid var(--rosso);border-radius:6px;padding:24px 22px}
+    .scheda strong{display:block;font-size:15px;margin-bottom:6px}
+    .scheda span{font-size:14px;color:var(--grigio);line-height:1.5;display:block}
+
+    /* Programma: menù a tendina e punti separati */
+    .programma-testa{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end;margin-bottom:40px}
+    .selettore{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:22px 24px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    .selettore label{display:block;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--rosso);margin-bottom:10px}
+    .selettore .campo{position:relative}
+    .selettore select{width:100%;appearance:none;-webkit-appearance:none;font:inherit;font-weight:700;font-size:16px;padding:16px 52px 16px 18px;border:2px solid var(--nero);border-radius:6px;background:#fff;color:var(--nero);cursor:pointer}
+    .selettore select:focus{outline:3px solid rgba(226,0,26,.35);outline-offset:2px}
+    .selettore .campo::after{content:"";position:absolute;right:20px;top:50%;width:12px;height:12px;border-right:3px solid var(--rosso);border-bottom:3px solid var(--rosso);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+    .programma-corpo{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:start}
+    .indice{position:sticky;top:100px;background:#fff;border:1px solid var(--linea);border-radius:8px;padding:12px 0;list-style:none;margin:0}
+    .indice li a{display:flex;gap:12px;padding:11px 20px;font-size:14px;font-weight:600;color:var(--nero);line-height:1.35;border-left:4px solid transparent}
+    .indice li a .num{color:var(--rosso);font-weight:900;min-width:24px}
+    .indice li a:hover{background:var(--chiaro);text-decoration:none}
+    .indice li a.attivo{border-left-color:var(--rosso);background:var(--chiaro);color:var(--rosso)}
+    .punto{display:none;background:#fff;border:1px solid var(--linea);border-radius:8px;padding:48px 52px;box-shadow:0 10px 30px rgba(0,0,0,.05);animation:entra .3s ease}
+    .punto.attivo{display:block}
+    @keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .punto .numero{font-size:64px;font-weight:900;color:var(--rosso);line-height:1;letter-spacing:-.04em;opacity:.18;margin-bottom:-18px}
+    .punto h3{font-size:clamp(24px,2.6vw,34px);margin-bottom:22px}
+    .punto p{font-size:17px;color:#333}
+    .punto h4{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--rosso);margin:34px 0 14px;font-weight:800}
+    .punto ol{counter-reset:priorita;list-style:none;padding:0;margin:0}
+    .punto ol li{position:relative;padding:14px 0 14px 58px;border-bottom:1px solid var(--linea);font-size:16px;font-weight:600;line-height:1.45}
+    .punto ol li::before{counter-increment:priorita;content:attr(data-n);position:absolute;left:0;top:10px;width:40px;height:40px;border-radius:50%;background:var(--rosso);color:#fff;display:grid;place-items:center;font-weight:900;font-size:14px}
+    .punto ol li:last-child{border:0}
+    .slogan{background:var(--nero);color:#fff;font-weight:800;font-size:19px;line-height:1.4;padding:22px 28px;border-radius:6px;border-left:6px solid var(--rosso);margin:28px 0 8px}
+    .navigazione-punti{display:flex;justify-content:space-between;gap:14px;margin-top:36px;padding-top:24px;border-top:1px solid var(--linea)}
+    .navigazione-punti button{font:inherit;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;background:none;border:2px solid var(--nero);border-radius:4px;padding:12px 18px;cursor:pointer;color:var(--nero)}
+    .navigazione-punti button:hover{background:var(--nero);color:#fff}
+    .navigazione-punti button:disabled{opacity:.3;cursor:default;background:none;color:var(--nero)}
+
+    /* Lettera */
+    .lettera{max-width:820px;margin:0 auto}
+    .lettera p{font-size:18px;color:#333}
+    .lettera .firma{margin-top:30px;font-weight:900;font-size:22px}
+    .lettera .firma small{display:block;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--grigio)}
+
+    /* Appello al voto */
+    .appello{background:var(--rosso);color:#fff;text-align:center;padding:100px 0}
+    .appello h2{font-size:clamp(34px,4.6vw,60px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;max-width:900px;margin:0 auto 20px}
+    .appello p{font-size:19px;max-width:720px;margin:0 auto 34px;opacity:.95}
+    .appello .bottone{background:#fff;color:var(--rosso);border-color:#fff}
+    .appello .bottone:hover{background:var(--nero);border-color:var(--nero);color:#fff}
+
+    /* Partecipa */
+    .contatti{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .contatto{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:30px 28px}
+    .contatto .icona{width:48px;height:48px;border-radius:50%;background:var(--rosso);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;margin-bottom:16px}
+    .contatto strong{display:block;font-size:18px;margin-bottom:6px}
+    .contatto p{font-size:15px;color:var(--grigio);margin:0}
+
+    /* Piè di pagina */
+    footer{background:var(--nero);color:#ccc;padding:64px 0 30px;font-size:14px}
+    footer .griglia{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:44px}
+    footer h3{color:#fff;font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+    footer ul{list-style:none;margin:0;padding:0}
+    footer li{margin-bottom:8px}
+    footer a{color:#fff}
+    footer .marchio{color:#fff;margin-bottom:14px}
+    footer .marchio small{color:#aaa}
+    footer .nota{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:#999}
+    footer .nota strong{color:#fff}
+
+    /* Adattamento schermi piccoli */
+    @media(max-width:980px){
+      .schede{grid-template-columns:1fr 1fr}
+      .programma-corpo{grid-template-columns:1fr}
+      .indice{display:none}
+      .punto{padding:34px 28px}
+      .fascia .contenitore{grid-template-columns:1fr}
+      .fascia div{padding:22px 0;border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}
+      .fascia div:last-child{border:0}
+      .contatti{grid-template-columns:1fr}
+      footer .griglia{grid-template-columns:1fr}
+    }
+    @media(max-width:820px){
+      .hamburger{display:flex}
+      .menu{display:none;position:absolute;left:0;right:0;top:78px;background:#fff;flex-direction:column;align-items:stretch;padding:12px 16px 20px;border-bottom:1px solid var(--linea);box-shadow:0 20px 40px rgba(0,0,0,.12);max-height:calc(100vh - 78px);overflow:auto}
+      .menu.aperto{display:flex}
+      .menu>li>a,.menu>li>button{width:100%;justify-content:space-between;padding:14px 12px;font-size:15px}
+      .tendina{position:static;min-width:0;box-shadow:none;border:0;border-left:4px solid var(--rosso);margin:0 0 8px 12px;max-height:none}
+      .menu .evidenza a{justify-content:center;margin-top:8px}
+      .due-colonne{grid-template-columns:1fr;gap:44px}
+      .programma-testa{grid-template-columns:1fr;gap:24px}
+      .ritratto{width:min(100%,420px);justify-self:center}
+      .ritratto .didascalia{left:12px}
+      .schede{grid-template-columns:1fr}
+      section.blocco{padding:64px 0}
+      .apertura{min-height:auto}
+      .apertura .sfondo{inset:0;opacity:.32}
+      .apertura .contenitore{padding-top:70px;padding-bottom:90px}
+      .apertura .cartiglio{right:auto;left:24px;bottom:22px}
+      .barra-alta .contenitore span:last-child{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<div class="barra-alta">
+  <div class="contenitore">
+    <span>Elezioni comunali · Cordenons 2027</span>
+    <span>Candidato sindaco del campo largo</span>
+  </div>
+</div>
+
+<header class="testata">
+  <div class="contenitore">
+    <a class="marchio" href="#inizio" aria-label="Torna all'inizio">
+      <span class="sigla" aria-hidden="true">MP</span>
+      <span>Manuel Pil8<small>Sindaco per Cordenons</small></span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Apri il menù" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="menu" id="menu">
+      <li><a href="#candidato">Il candidato</a></li>
+      <li><a href="#lettera">La lettera</a></li>
+      <li>
+        <button type="button" id="apri-programma" aria-expanded="false" aria-controls="tendina-programma">Programma <span class="freccia" aria-hidden="true"></span></button>
+        <ul class="tendina" id="tendina-programma" aria-label="Punti del programma">
+          <li><a href="#programma-0" data-punto="0"><span class="num">00</span>Breve biografia del candidato</a></li>
+          <li class="separatore" aria-hidden="true"></li>
+          <li><a href="#programma-1" data-punto="1"><span class="num">01</span>Lettera del candidato ai cittadini</a></li>
+          <li><a href="#programma-2" data-punto="2"><span class="num">02</span>Analisi ironica degli anni di governo leghista</a></li>
+          <li><a href="#programma-3" data-punto="3"><span class="num">03</span>Le nostre dieci priorità, più altre quindici da discutere</a></li>
+          <li><a href="#programma-4" data-punto="4"><span class="num">04</span>Grande Piano comunale per la Terza Età</a></li>
+          <li><a href="#programma-5" data-punto="5"><span class="num">05</span>Cantieri, strade e osservatori professionisti</a></li>
+          <li><a href="#programma-6" data-punto="6"><span class="num">06</span>Cultura, ballo e tornei di carte</a></li>
+          <li><a href="#programma-7" data-punto="7"><span class="num">07</span>Partecipazione: più assemblee, meno decisioni affrettate</a></li>
+          <li><a href="#programma-8" data-punto="8"><span class="num">08</span>Sicurezza urbana e «sentinelle della finestra»</a></li>
+          <li><a href="#programma-9" data-punto="9"><span class="num">09</span>Commercio locale, bar, mercati e sale da ballo</a></li>
+          <li><a href="#programma-10" data-punto="10"><span class="num">10</span>Slogan conclusivo e appello al voto</a></li>
+        </ul>
+      </li>
+      <li><a href="#partecipa">Partecipa</a></li>
+      <li class="evidenza"><a href="#programma">Leggi il programma</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="inizio">
+
+  <!-- Apertura -->
+  <section class="apertura" aria-label="Apertura">
+    <div class="sfondo" aria-hidden="true"></div>
+    <div class="velo" aria-hidden="true"></div>
+    <div class="contenitore">
+      <div class="contenuto">
+        <span class="occhiello">Cordenons 2027 · Campo largo</span>
+        <h1>Insieme,<br>ma <em>senza correre</em></h1>
+        <p class="sottotitolo">Manuel Pil8 candidato sindaco. Una città che ascolta, convoca, verbalizza e aggiorna la seduta. Cambiare tutto, ma con calma e dopo aver sentito tutti.</p>
+        <div class="azioni">
+          <a class="bottone" href="#programma">Il programma punto per punto</a>
+          <a class="bottone chiaro" href="#candidato">Chi è Manuel</a>
+        </div>
+      </div>
+    </div>
+    <span class="cartiglio">In sella verso il municipio, a velocità moderata</span>
+  </section>
+
+  <!-- Tre slogan -->
+  <div class="fascia" aria-label="I nostri slogan">
+    <div class="contenitore">
+      <div><strong>Cambiare tutto, ma con calma e dopo aver sentito tutti.</strong></div>
+      <div><strong>Un tavolo per ogni problema, una commissione per ogni tavolo.</strong></div>
+      <div><strong>Più panchine, più ascolto, meno fretta.</strong></div>
+    </div>
+  </div>
+
+  <!-- Il candidato -->
+  <section class="blocco" id="candidato">
+    <div class="contenitore">
+      <div class="due-colonne">
+        <div class="ritratto">
+          <div class="cornice" role="img" aria-label="Manuel Pil8, ritratto"></div>
+          <div class="didascalia"><small>Il candidato</small>Manuel Pil8</div>
+        </div>
+        <div class="testo-lungo">
+          <span class="occhiello">Il candidato</span>
+          <h2>Appassionato cordenonese</h2>
+          <p class="citazione">«Appassionato cordenonese, amo la mia Regione con la sua Storia, le sue genti e il suo futuro».</p>
+          <p>Una dichiarazione d'amore abbastanza ampia da non lasciare fuori nessuno. La Storia, le genti, il futuro. Manca solo il presente, ma il presente è notoriamente la parte scomoda.</p>
+          <p>Il percorso è lineare. Scuole superiori a Sacile, università dal 2019, ancora in corso. Dal dicembre 2022 segretario del circolo cittadino del partito, dal 2023 nella segreteria del gruppo consiliare regionale dello stesso partito. Anni di esperienza, tutti maturati dentro una struttura che per statuto non ha mai dovuto approvare un bilancio comunale, appaltare un asfalto o rispondere di notte a un allagamento. La sua pagina non lo scrive, ovviamente. La sua pagina scrive «esperienza di servizio».</p>
+          <p>Va aggiunto un dettaglio di continuità: dal 2023 lavora in una segreteria che la maggioranza non l'ha mai vista. Una carriera costruita per intero sul lato dell'aula dove si alza la mano per dire di no. È una posizione comoda: si può avere ragione su tutto, perché non tocca mai a te dimostrarlo.</p>
+          <p>Nel curriculum figura anche l'associazione dei marinai in congedo, con l'àncora nel simbolo. A Cordenons, comune notoriamente privo di sbocco sul mare, l'àncora funziona benissimo come metafora: si resta saldi, e nel frattempo non ci si muove di un metro.</p>
+          <p>Il ritratto finale è quello di un giovane serio, preparato, cortese, che conosce a memoria l'organigramma del partito e a grandi linee il suo Comune. Ama la Regione con la sua Storia, le sue genti e il suo futuro. Della manutenzione delle strade, per ora, si occupa qualcun altro.</p>
+        </div>
+      </div>
+      <div class="schede" aria-label="Il percorso in breve">
+        <div class="scheda"><strong>Formazione</strong><span>Scuole superiori a Sacile. Università dal 2019, ancora in corso.</span></div>
+        <div class="scheda"><strong>Dal dicembre 2022</strong><span>Segretario del circolo cittadino del partito.</span></div>
+        <div class="scheda"><strong>Dal 2023</strong><span>Segreteria del gruppo consiliare regionale dello stesso partito.</span></div>
+        <div class="scheda"><strong>Associazionismo</strong><span>Associazione dei marinai in congedo, con l'àncora nel simbolo.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lettera -->
+  <section class="blocco grigia" id="lettera">
+    <div class="contenitore">
+      <div class="lettera">
+        <span class="occhiello">La lettera ai cittadini</span>
+        <h2>Cordenons riparte. Appena troviamo tutti un pomeriggio libero.</h2>
+        <p>Care cittadine, cari cittadini, cari residenti temporaneamente affacciati alla finestra,</p>
+        <p>dopo molti anni di amministrazione comunale di centrodestra a guida leghista, è arrivato il momento di cambiare. Non troppo, naturalmente. Quel tanto che basta per spostare qualche sedia, cambiare il colore delle cartelline e convocare una commissione sul futuro.</p>
+        <p>Cordenons merita una politica capace di guardare lontano, possibilmente restando seduta. Una politica vicina alle persone, ai quartieri, alle zone del territorio, ai bar, alle parrocchie e soprattutto a chi sa esattamente da quanti giorni è aperto quel cantiere vicino alla rotonda.</p>
+        <p>La nostra sarà un'amministrazione moderata ma determinata, dinamica ma senza scatti, innovativa purché si possa continuare a compilare il modulo anche a penna.</p>
+        <p>Ascolteremo tutti: commercianti, famiglie, giovani, associazioni e anziani. Poi, per sicurezza, ascolteremo ancora gli anziani, perché conoscono il territorio, ricordano com'era prima e sanno sempre dove trovare qualcuno che può confermare.</p>
+        <p>Non imporremo soluzioni dall'alto. Le faremo scendere lentamente, dopo almeno tre passaggi in commissione.</p>
+        <div class="firma">Manuel Pil8<small>Candidato sindaco · Insieme, ma senza correre</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programma -->
+  <section class="blocco" id="programma">
+    <div class="contenitore">
+      <div class="programma-testa">
+        <div>
+          <span class="occhiello">Il programma</span>
+          <h2>Insieme, ma senza correre.<br>Il programma punto per punto.</h2>
+          <p style="font-size:17px;color:#333;margin:0">Dieci capitoli e una biografia. Scegli un punto dal menù a tendina, dall'indice a lato oppure dal menù «Programma» in alto: ogni capitolo si apre da solo, senza fretta.</p>
+        </div>
+        <div class="selettore">
+          <label for="scelta-punto">Scegli il punto del programma</label>
+          <div class="campo">
+            <select id="scelta-punto" aria-label="Punto del programma">
+              <option value="0">Breve biografia del candidato</option>
+              <option value="1">1. Lettera del candidato ai cittadini</option>
+              <option value="2">2. Analisi ironica degli anni di governo leghista</option>
+              <option value="3">3. Le nostre dieci priorità, più altre quindici da discutere</option>
+              <option value="4">4. Grande Piano comunale per la Terza Età</option>
+              <option value="5">5. Cantieri, strade e osservatori professionisti</option>
+              <option value="6">6. Cultura, ballo e tornei di carte</option>
+              <option value="7">7. Partecipazione: più assemblee, meno decisioni affrettate</option>
+              <option value="8">8. Sicurezza urbana e «sentinelle della finestra»</option>
+              <option value="9">9. Commercio locale, bar, mercati e sale da ballo</option>
+              <option value="10">10. Slogan conclusivo e appello al voto</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="programma-corpo">
+        <ul class="indice" aria-label="Indice del programma">
+          <li><a href="#programma-0" data-punto="0"><span class="num">00</span>Breve biografia</a></li>
+          <li><a href="#programma-1" data-punto="1"><span class="num">01</span>Lettera ai cittadini</a></li>
+          <li><a href="#programma-2" data-punto="2"><span class="num">02</span>Gli anni di governo leghista</a></li>
+          <li><a href="#programma-3" data-punto="3"><span class="num">03</span>Le venticinque priorità</a></li>
+          <li><a href="#programma-4" data-punto="4"><span class="num">04</span>Piano per la Terza Età</a></li>
+          <li><a href="#programma-5" data-punto="5"><span class="num">05</span>Cantieri e strade</a></li>
+          <li><a href="#programma-6" data-punto="6"><span class="num">06</span>Cultura, ballo e carte</a></li>
+          <li><a href="#programma-7" data-punto="7"><span class="num">07</span>Partecipazione</a></li>
+          <li><a href="#programma-8" data-punto="8"><span class="num">08</span>Sicurezza urbana</a></li>
+          <li><a href="#programma-9" data-punto="9"><span class="num">09</span>Commercio locale</a></li>
+          <li><a href="#programma-10" data-punto="10"><span class="num">10</span>Appello al voto</a></li>
+        </ul>
+
+        <div class="punti">
+
+          <article class="punto" id="programma-0" data-punto="0">
+            <div class="numero">00</div>
+            <h3>Breve biografia del candidato</h3>
+            <p>Manuel Pil8, 26 anni portati con prudenza, viene da una solida formazione democristiana: oratorio, consiglio pastorale, assemblee di condominio e una lunga esperienza nella preparazione di ordini del giorno che nessuno ha mai avuto il coraggio di concludere.</p>
+            <p>Di centrosinistra per convinzione, di centro per abitudine e leggermente a destra quando deve entrare in parcheggio, Manuel si presenta come il rassicurante «giovane vecchio» della politica locale.</p>
+            <p>Crede nel dialogo, nella mediazione e nei vassoi di biscotti secchi sistemati al centro del tavolo. Prima di prendere una decisione ascolta tutti. Poi riconvoca la riunione per verificare di aver ascoltato bene.</p>
+            <p>Non promette miracoli. Promette tavoli tecnici, commissioni paritetiche, sopralluoghi partecipati e, nei casi più urgenti, una telefonata all'ufficio competente entro la settimana.</p>
+          </article>
+
+          <article class="punto" id="programma-1" data-punto="1">
+            <div class="numero">01</div>
+            <h3>Lettera del candidato ai cittadini</h3>
+            <p>Care cittadine, cari cittadini, cari residenti temporaneamente affacciati alla finestra,</p>
+            <p>dopo molti anni di amministrazione comunale di centrodestra a guida leghista, è arrivato il momento di cambiare. Non troppo, naturalmente. Quel tanto che basta per spostare qualche sedia, cambiare il colore delle cartelline e convocare una commissione sul futuro.</p>
+            <p>Cordenons merita una politica capace di guardare lontano, possibilmente restando seduta. Una politica vicina alle persone, ai quartieri, alle zone del territorio, ai bar, alle parrocchie e soprattutto a chi sa esattamente da quanti giorni è aperto quel cantiere vicino alla rotonda.</p>
+            <p>La nostra sarà un'amministrazione moderata ma determinata, dinamica ma senza scatti, innovativa purché si possa continuare a compilare il modulo anche a penna.</p>
+            <p>Ascolteremo tutti: commercianti, famiglie, giovani, associazioni e anziani. Poi, per sicurezza, ascolteremo ancora gli anziani, perché conoscono il territorio, ricordano com'era prima e sanno sempre dove trovare qualcuno che può confermare.</p>
+            <p>Non imporremo soluzioni dall'alto. Le faremo scendere lentamente, dopo almeno tre passaggi in commissione.</p>
+            <div class="slogan">Cordenons riparte. Appena troviamo tutti un pomeriggio libero.</div>
+          </article>
+
+          <article class="punto" id="programma-2" data-punto="2">
+            <div class="numero">02</div>
+            <h3>Analisi ironica degli anni di governo leghista</h3>
+            <p>Gli anni del centrodestra hanno lasciato una città abituata agli annunci, alle fotografie con fascia tricolore e alle inaugurazioni celebrate con qualunque condizione meteorologica.</p>
+            <p>Non intendiamo attribuire fatti specifici a nessuno: questo è un programma di fantasia e tale deve restare. Possiamo però riconoscere, sul piano strettamente teatrale, che ogni lunga stagione politica finisce per produrre alcune abitudini.</p>
+            <p>La prima è la convinzione che basti tagliare un nastro perché un'opera sia terminata. La seconda è che una ruspa fotografata da tre angolazioni equivalga a un cantiere in piena attività. La terza è che qualunque problema possa essere affrontato installando un cartello più grande.</p>
+            <p>Noi cambieremo metodo. Prima del nastro convocheremo un tavolo. Prima della ruspa organizzeremo un sopralluogo. Prima del cartello istituiremo una commissione incaricata di scegliere il carattere tipografico.</p>
+            <p>Non rinnegheremo il passato: lo metteremo agli atti e lo invieremo a tutti i capigruppo per eventuali osservazioni entro trenta giorni.</p>
+          </article>
+
+          <article class="punto" id="programma-3" data-punto="3">
+            <div class="numero">03</div>
+            <h3>Le nostre dieci priorità, più altre quindici da discutere</h3>
+            <h4>Le dieci priorità già quasi decise</h4>
+            <ol>
+              <li data-n="1">Istituire l'Assessorato alla Lentezza, alla Buona Educazione e alle Sedie Disponibili.</li>
+              <li data-n="2">Collocare panchine con schienale, ombra, tavolino per le carte e visuale privilegiata sui lavori stradali.</li>
+              <li data-n="3">Attivare la navetta «Casa, Mercato, Cimitero, Centro anziani», con fermata facoltativa al bar se l'autista conosce il posto.</li>
+              <li data-n="4">Organizzare feste danzanti pomeridiane con orchestra, valzer, mazurka e chiusura obbligatoria prima del telegiornale.</li>
+              <li data-n="5">Creare il patentino comunale di «Direttore dei lavori da marciapiede».</li>
+              <li data-n="6">Istituire una linea telefonica per segnalare buche, rumori, erba alta, lampioni sospetti e vicini che parcheggiano «sempre un po' come vogliono».</li>
+              <li data-n="7">Pubblicare il bollettino comunale «Cordenons Informa, Avvisa e Ricorda», dedicato a farmacie di turno, sagre, cantieri e compleanni degli ultranovantenni.</li>
+              <li data-n="8">Organizzare gare ufficiali di briscola, scopa e tressette con arbitri comunali e VAR (moviola in campo) da tavolo.</li>
+              <li data-n="9">Portare il Consiglio comunale nei bar, nelle bocciofile e nelle sale parrocchiali.</li>
+              <li data-n="10">Inaugurare ogni opera almeno cinque volte: prima pietra, visita al cantiere, apertura provvisoria, apertura definitiva e anniversario dell'apertura.</li>
+            </ol>
+            <h4>Le altre quindici priorità da discutere senza fretta</h4>
+            <ol>
+              <li data-n="11">Approvare il Piano regolatore della briscola, con almeno un tavolo ogni cinquecento abitanti.</li>
+              <li data-n="12">Creare una Commissione permanente per distinguere una buca da un semplice avvallamento.</li>
+              <li data-n="13">Organizzare corsi comunali per imparare a dire «Ai miei tempi» con autorevolezza istituzionale.</li>
+              <li data-n="14">Installare orologi pubblici regolati cinque minuti indietro, così nessuno arriverà mai davvero in ritardo.</li>
+              <li data-n="15">Riservare una corsia pedonale a chi cammina lentamente e incontra conoscenti ogni venti metri.</li>
+              <li data-n="16">Introdurre il referendum consultivo sul gusto dei biscotti serviti durante le assemblee.</li>
+              <li data-n="17">Avviare il gemellaggio con un Comune scelto solo per la qualità della sua orchestra da ballo.</li>
+              <li data-n="18">Creare un albo comunale delle sedie pieghevoli disponibili per feste, riunioni e improvvise commemorazioni.</li>
+              <li data-n="19">Concedere il patrocinio morale alle conversazioni iniziate con la frase: «Non vorrei fare polemica, però…».</li>
+              <li data-n="20">Istituire la Giornata cittadina del Sopralluogo, durante la quale nessuno lavora perché tutti osservano.</li>
+              <li data-n="21">Installare una bacheca pubblica per gli avvisi importanti e una seconda bacheca per commentare quelli della prima.</li>
+              <li data-n="22">Finanziare un corso avanzato di parcheggio davanti al bar senza bloccare completamente la strada.</li>
+              <li data-n="23">Premiare il quartiere che espone più gerani e meno parabole visibili.</li>
+              <li data-n="24">Nominare un garante comunale contro le riunioni fissate durante la partita.</li>
+              <li data-n="25">Redigere un piano quinquennale per decidere dove collocare la targa che ricorderà l'approvazione del piano.</li>
+            </ol>
+          </article>
+
+          <article class="punto" id="programma-4" data-punto="4">
+            <div class="numero">04</div>
+            <h3>Grande Piano comunale per la Terza Età</h3>
+            <p>Gli anziani non saranno considerati un problema da gestire, ma il vero motore sociale, politico e informativo della città. Sanno chi abita dove, quando è stata asfaltata una strada e perché il panificio di una volta faceva il pane migliore.</p>
+            <p>Il Grande Piano prevede feste danzanti settimanali dalle 15:30 alle 18:45. Alle 18:30 l'orchestra eseguirà l'ultimo valzer; alle 18:40 partiranno i saluti; alle 18:45 tutti a casa in tempo per il telegiornale.</p>
+            <p>Ogni festa avrà orchestra vera, sedie in numero superiore ai partecipanti, acqua, vino con moderazione e biscotti scelti tramite referendum. Il volume sarà abbastanza alto per ballare, ma non tanto da impedire di lamentarsi della musica.</p>
+            <p>Nascerà l'Università Popolare delle Esperienze Non Richieste, con lezioni su potatura, conserve, previsioni del tempo basate sulle ginocchia e corretta osservazione dei lavori pubblici.</p>
+            <p>La navetta comunale collegherà casa, mercato, cimitero e centro anziani. La fermata al bar sarà autorizzata quando almeno due passeggeri dichiareranno: «Tanto siamo già qui».</p>
+            <p>Per gli ultranovantenni sarà previsto un servizio fotografico sul bollettino comunale. Al compimento dei cento anni il sindaco porterà una targa, una torta e almeno tre assessori disponibili a comparire nella foto.</p>
+          </article>
+
+          <article class="punto" id="programma-5" data-punto="5">
+            <div class="numero">05</div>
+            <h3>Cantieri, strade e osservatori professionisti</h3>
+            <p>Ogni cantiere sarà accompagnato da un Tour Comunale dei Lavori in Corso. Un pullman partirà dal municipio con cittadini, consiglieri, tecnici, curiosi e persone salite soltanto perché pensavano fosse la navetta del mercato. A ciascun partecipante saranno consegnati un caschetto, una merenda e un dépliant di sedici pagine.</p>
+            <p>Le spiegazioni dureranno abbastanza da far sembrare conclusa anche un'opera appena iniziata.</p>
+            <p>Il patentino di Direttore dei lavori da marciapiede sarà assegnato a chi visita lo stesso cantiere almeno quattro volte alla settimana, osserva gli operai con le mani dietro la schiena, pronuncia correttamente «Io avrei fatto diversamente» e individua un problema prima che vengano scaricati i materiali.</p>
+            <p>I direttori patentati riceveranno una pettorina catarifrangente color tortora e potranno partecipare al Tavolo comunale dei Pareri Non Richiesti.</p>
+            <p>Ogni strada interessata da lavori avrà una panchina di osservazione. Se il cantiere dura più di sei mesi, la panchina sarà dichiarata presidio culturale permanente.</p>
+          </article>
+
+          <article class="punto" id="programma-6" data-punto="6">
+            <div class="numero">06</div>
+            <h3>Cultura, ballo e tornei di carte</h3>
+            <p>La cultura non vive soltanto nei grandi eventi. Vive anche nelle sale parrocchiali con il pavimento lucido, nei circoli, nelle bocciofile e nelle discussioni su chi abbia sbagliato a giocare il re di briscola.</p>
+            <p>Nasceranno le Olimpiadi Cordenonesi delle Carte, con tornei di briscola, scopa e tressette. Le contestazioni saranno affidate a un assessorato dedicato. Nei casi più gravi verrà convocata una commissione composta da tre giocatori neutrali e un barista con almeno vent'anni di esperienza.</p>
+            <p>Sarà redatto il Piano regolatore della briscola. Nessuna zona della città dovrà trovarsi a più di dieci minuti a piedi da un tavolo stabile, quattro sedie e un mazzo sufficientemente leggibile.</p>
+            <p>Il Comune promuoverà il Festival del Valzer Amministrativo, la Mazurka della Partecipazione, il Premio «Fisarmonica d'Argento», la Settimana della Sedia Libera e il concorso per il miglior vassoio di crostoli istituzionali.</p>
+            <p>Il gemellaggio culturale sarà stretto con una località dalla storia rispettabile, dalla piazza decorosa e dall'orchestra capace di suonare senza pause eccessive.</p>
+            <div class="slogan">Più valzer, meno balzi in avanti.</div>
+          </article>
+
+          <article class="punto" id="programma-7" data-punto="7">
+            <div class="numero">07</div>
+            <h3>Partecipazione: più assemblee, meno decisioni affrettate</h3>
+            <p>La nostra idea di partecipazione è semplice: nessuna scelta deve essere compiuta finché resta in sala una persona che non ha ancora ripetuto ciò che hanno già detto gli altri.</p>
+            <p>Ogni assemblea pubblica prevederà tre saluti istituzionali, almeno sette interventi introduttivi, la lettura integrale del verbale precedente, una pausa biscotti, domande dal pubblico senza limite di durata e nessuna decisione prima delle 23:30.</p>
+            <p>Se alle 23:30 sarà ancora presente il numero legale, la decisione verrà rinviata per evitare gesti avventati.</p>
+            <p>Creeremo tavoli di quartiere, tavoli tematici, tavoli tecnici e un tavolo incaricato di coordinare gli altri tavoli. Quest'ultimo sarà rettangolare, per dare un segnale di discontinuità.</p>
+            <p>Il Consiglio comunale itinerante si riunirà a turno nei bar, nelle bocciofile e nelle sale parrocchiali. Le sedute al bar saranno valide solo dopo l'approvazione del conto e la verifica degli scontrini da parte dei revisori.</p>
+            <p>Il gusto dei biscotti sarà scelto con referendum consultivo. Il risultato non sarà vincolante, ma verrà tenuto nella massima considerazione da una commissione da nominare.</p>
+          </article>
+
+          <article class="punto" id="programma-8" data-punto="8">
+            <div class="numero">08</div>
+            <h3>Sicurezza urbana e «sentinelle della finestra»</h3>
+            <p>La sicurezza richiede presenza, attenzione e una rete di persone capaci di notare anche una tenda spostata nel palazzo di fronte.</p>
+            <p>Per questo istituiremo le Sentinelle della Finestra, cittadini volontari che osservano il quartiere da una postazione domestica dotata di cuscino, termosifone e visuale sulla strada.</p>
+            <p>Le sentinelle non sostituiranno le forze dell'ordine e non svolgeranno compiti operativi. Potranno però annotare movimenti insoliti, furgoni mai visti e automobili parcheggiate «da uno che sicuramente non è di qua».</p>
+            <p>La linea telefonica comunale raccoglierà segnalazioni su buche, erba alta, rumori misteriosi, lampioni spenti, cassonetti collocati «due metri più in là del solito», parcheggi creativi e campanelli suonati senza adeguata motivazione.</p>
+            <p>Le segnalazioni davvero urgenti saranno inoltrate agli uffici. Le altre formeranno il prezioso archivio storico «Lo avevamo detto».</p>
+          </article>
+
+          <article class="punto" id="programma-9" data-punto="9">
+            <div class="numero">09</div>
+            <h3>Commercio locale, bar, mercati e sale da ballo</h3>
+            <p>I negozi di vicinato sono luoghi di economia, relazione e raccolta di informazioni più rapida di qualunque ufficio comunale.</p>
+            <p>Sosterremo il commercio locale con il marchio «Comprato qui, commentato al bar». Chi acquisterà nei negozi cittadini riceverà punti simbolici da utilizzare durante le consultazioni sui biscotti.</p>
+            <p>Il mercato avrà più panchine, più ombra e una zona franca nella quale discutere dei prezzi senza obbligo di acquistare.</p>
+            <p>Ai bar sarà riconosciuta la funzione di presidio democratico informale. Quelli dotati di tavolo da carte potranno richiedere l'accreditamento comunale. Quelli con sala abbastanza grande potranno ospitare commissioni consiliari, purché il televisore resti spento durante le votazioni, salvo partite decisive.</p>
+            <p>Le sale da ballo saranno inserite nella pianificazione strategica cittadina. Una comunità che sa ballare una mazurka senza urtarsi possiede già solide basi per il dialogo civile.</p>
+            <p>Promuoveremo la Notte Bianca Pomeridiana, dalle 16:00 alle 20:15, con negozi aperti, musica dal vivo e rientro ordinato prima che venga umidità.</p>
+          </article>
+
+          <article class="punto" id="programma-10" data-punto="10">
+            <div class="numero">10</div>
+            <h3>Slogan conclusivo e appello al voto</h3>
+            <p>Cittadine e cittadini, non vi chiediamo un salto nel buio. Al massimo un passo laterale, ben illuminato e dotato di corrimano.</p>
+            <p>Con la lista civica Insieme, ma senza correre, Cordenons avrà un'amministrazione capace di promettere il cambiamento senza provocare inutili agitazioni. Un'amministrazione che ascolta, convoca, verbalizza e aggiorna la seduta.</p>
+            <div class="slogan">«Cambiare tutto, ma con calma e dopo aver sentito tutti.»</div>
+            <div class="slogan">«Un tavolo per ogni problema, una commissione per ogni tavolo.»</div>
+            <div class="slogan">«Più panchine, più ascolto, meno fretta.»</div>
+            <p style="margin-top:28px">Il giorno delle elezioni votate Manuel Pil8. Fatelo con convinzione, ma senza gesti bruschi. Mettete una croce leggibile, controllate due volte e, se avete dubbi, chiedete che venga istituita una commissione.</p>
+            <p><strong>Cordenons può cambiare. Subito dopo la partita di briscola.</strong></p>
+          </article>
+
+          <div class="navigazione-punti">
+            <button type="button" id="punto-prec">← Punto precedente</button>
+            <button type="button" id="punto-succ">Punto successivo →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appello al voto -->
+  <section class="appello" id="voto">
+    <div class="contenitore">
+      <span class="occhiello" style="color:#fff;background:rgba(0,0,0,.2);padding:8px 14px;border-radius:3px">Elezioni comunali 2027</span>
+      <h2>Cordenons può cambiare. Subito dopo la partita di briscola.</h2>
+      <p>Non vi chiediamo un salto nel buio. Al massimo un passo laterale, ben illuminato e dotato di corrimano.</p>
+      <a class="bottone" href="#programma-10" data-punto="10">Leggi l'appello al voto</a>
+    </div>
+  </section>
+
+  <!-- Partecipa -->
+  <section class="blocco grigia" id="partecipa">
+    <div class="contenitore">
+      <span class="occhiello">Partecipa</span>
+      <h2>Un tavolo per ogni problema. Un posto anche per te.</h2>
+      <p style="font-size:17px;color:#333;max-width:720px">La campagna si costruisce insieme, nei quartieri, nei bar, nelle sale parrocchiali e nelle bocciofile. Scegli come dare una mano, con calma.</p>
+      <div class="contatti">
+        <div class="contatto"><div class="icona" aria-hidden="true">1</div><strong>Vieni a un incontro</strong><p>Assemblee pubbliche in ogni quartiere, con pausa biscotti e nessuna decisione prima delle 23:30.</p></div>
+        <div class="contatto"><div class="icona" aria-hidden="true">2</div><strong>Proponi un tavolo</strong><p>Hai un problema? Merita un tavolo. Il tavolo merita una commissione. La commissione merita te.</p></div>
+        <div class="contatto"><div class="icona" aria-hidden="true">3</div><strong>Segnala una buca</strong><p>La linea telefonica comunale è in via di istituzione. Nel frattempo, la panchina di osservazione è già disponibile.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="contenitore">
+    <div class="griglia">
+      <div>
+        <a class="marchio" href="#inizio"><span class="sigla" aria-hidden="true">MP</span><span>Manuel Pil8<small>Sindaco per Cordenons 2027</small></span></a>
+        <p>Candidato sindaco del campo largo con la lista civica «Insieme, ma senza correre». Cambiare tutto, ma con calma e dopo aver sentito tutti.</p>
+      </div>
+      <div>
+        <h3>Il sito</h3>
+        <ul>
+          <li><a href="#candidato">Il candidato</a></li>
+          <li><a href="#lettera">La lettera ai cittadini</a></li>
+          <li><a href="#programma">Il programma</a></li>
+          <li><a href="#partecipa">Partecipa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Il programma</h3>
+        <ul>
+          <li><a href="#programma-3" data-punto="3">Le venticinque priorità</a></li>
+          <li><a href="#programma-4" data-punto="4">Piano per la Terza Età</a></li>
+          <li><a href="#programma-7" data-punto="7">Partecipazione</a></li>
+          <li><a href="#programma-10" data-punto="10">Appello al voto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="nota">
+      <span><strong>Insieme, ma senza correre</strong> · Cordenons 2027</span>
+      <span>Sito satirico e dichiaratamente inventato. Nessun riferimento a candidati, partiti o amministratori reali.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var punti=[].slice.call(document.querySelectorAll('.punto'));
+  var scelta=document.getElementById('scelta-punto');
+  var indice=[].slice.call(document.querySelectorAll('.indice a'));
+  var prec=document.getElementById('punto-prec');
+  var succ=document.getElementById('punto-succ');
+  var totale=punti.length;
+
+  function mostra(n,scorri){
+    n=Math.max(0,Math.min(totale-1,parseInt(n,10)||0));
+    punti.forEach(function(p){p.classList.toggle('attivo',p.dataset.punto==n)});
+    indice.forEach(function(a){a.classList.toggle('attivo',a.dataset.punto==n)});
+    scelta.value=String(n);
+    prec.disabled=(n===0);
+    succ.disabled=(n===totale-1);
+    if(scorri){
+      if(history.replaceState){history.replaceState(null,'','#programma-'+n)}
+      var destinazione=window.innerWidth>980?document.getElementById('programma'):document.getElementById('programma-'+n);
+      destinazione.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }
+
+  scelta.addEventListener('change',function(){mostra(this.value,true)});
+  prec.addEventListener('click',function(){mostra(parseInt(scelta.value,10)-1,true)});
+  succ.addEventListener('click',function(){mostra(parseInt(scelta.value,10)+1,true)});
+
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[data-punto]');
+    if(!a)return;
+    e.preventDefault();
+    chiudiTendina();chiudiMenu();
+    mostra(a.dataset.punto,true);
+  });
+
+  /* Menù a tendina del programma nella testata */
+  var bottoneProgramma=document.getElementById('apri-programma');
+  var tendina=document.getElementById('tendina-programma');
+  function chiudiTendina(){tendina.classList.remove('aperta');bottoneProgramma.setAttribute('aria-expanded','false')}
+  bottoneProgramma.addEventListener('click',function(e){
+    e.stopPropagation();
+    var aperta=tendina.classList.toggle('aperta');
+    bottoneProgramma.setAttribute('aria-expanded',aperta?'true':'false');
+  });
+  document.addEventListener('click',function(e){if(!e.target.closest('#tendina-programma,#apri-programma'))chiudiTendina()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){chiudiTendina();chiudiMenu()}});
+
+  /* Menù per schermi piccoli */
+  var hamburger=document.getElementById('hamburger');
+  var menu=document.getElementById('menu');
+  function chiudiMenu(){menu.classList.remove('aperto');hamburger.setAttribute('aria-expanded','false')}
+  hamburger.addEventListener('click',function(){
+    var aperto=menu.classList.toggle('aperto');
+    hamburger.setAttribute('aria-expanded',aperto?'true':'false');
+  });
+  menu.querySelectorAll('a:not([data-punto])').forEach(function(a){a.addEventListener('click',chiudiMenu)});
+
+  /* Punto iniziale dall'indirizzo */
+  var m=/^#programma-(\d+)$/.exec(location.hash);
+  if(m){mostra(m[1],false);setTimeout(function(){document.getElementById('programma').scrollIntoView()},50)}else{mostra(0,false)}
+  window.addEventListener('hashchange',function(){var h=/^#programma-(\d+)$/.exec(location.hash);if(h)mostra(h[1],true)});
+})();
+</script>
+</body>
+</html>

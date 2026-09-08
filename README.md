@@ -31,6 +31,13 @@ Italiana e il Vangelo del giorno di Vatican News.
 Pagina singola, senza dipendenze esterne: HTML, CSS e JavaScript in un unico file,
 grafica realizzata in CSS. Funziona anche offline.
 
+## Altre pagine
+
+- **Cordenons 2027** (`cordenons2027/`): sito satirico di fantasia del candidato sindaco
+  immaginario Manuel Pil8, con biografia, lettera ai cittadini e programma elettorale
+  consultabile punto per punto da un menù a tendina.
+  Online: https://guidocostalonga.github.io/parola-del-giorno/cordenons2027/
+
 ---
 
 Curata da [@ginopizza](https://github.com/ginopizza)
